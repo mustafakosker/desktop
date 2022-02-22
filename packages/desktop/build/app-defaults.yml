@@ -19,7 +19,7 @@ metadata:
   description: Update policy for desktop.
   namespace: desktop
 spec:
-  checkForUpdates: true
+  checkForUpdates: false
   schedule: 0 * * * *
 ---
 kind: applicationSecurityPolicy
@@ -29,6 +29,8 @@ metadata:
   namespace: desktop
 spec:
   allowedDomains:
+    - ^http:\/\/.+$
+    - ^(?!http?:\/\/).*\.asar$
     - ^https:\/\/.+$
     - ^(?!https?:\/\/).*\.asar$
   blockedDomains:
