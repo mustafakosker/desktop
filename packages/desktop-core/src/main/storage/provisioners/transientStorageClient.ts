@@ -15,7 +15,7 @@ export class TransientStorageClient implements IStorageClient {
         return Promise.resolve(deleted);
     }
 
-    public get<T>(key: string, defaultValue: T): Promise<T> {
+    public get<T>(key: string, defaultValue?: T): Promise<T | undefined> {
         if (!this.store.has(key)) {
             return Promise.resolve(defaultValue);
         }

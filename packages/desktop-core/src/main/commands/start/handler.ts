@@ -7,6 +7,7 @@ import { logger } from "../../logging";
 import { registerApplicationMenu } from "../../menu";
 import { registerDefaults, registerUrls, registerConfigFiles, registerProtocol } from "./register";
 import { IStartOptions } from "./iStartOptions";
+import { restoreWorkspaces } from "./restore";
 
 export const handler = async (options: IStartOptions) => {
     const { context } = options;
@@ -93,6 +94,7 @@ export const handler = async (options: IStartOptions) => {
             });
 
         await Promise.all(launched);
+        await restoreWorkspaces();
     } catch (error) {
         logger.error(`Error starting config: ${error}`);
     }
