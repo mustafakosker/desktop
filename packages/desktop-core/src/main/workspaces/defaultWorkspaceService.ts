@@ -3,9 +3,9 @@ import { IStorageService } from "../storage";
 import { IWorkspaceService } from "./iWorkspaceService";
 import { IWorkspace } from "./iWorkspace";
 import { IUidGenerator } from "../ids";
+import { StorageKeys } from "../storage/storageKeys";
 
 export class DefaultWorkspaceService implements IWorkspaceService {
-    private readonly currentWorkspaceStorageKey = "currentWorkspaceUid";
     private readonly storageService: IStorageService;
     private readonly uidGenerator: IUidGenerator;
     private readonly workspacesStorageKey = "workspaces";
@@ -43,11 +43,11 @@ export class DefaultWorkspaceService implements IWorkspaceService {
         }
 
         const workspaces = await storage.instance.get<IWorkspace[]>(this.workspacesStorageKey, []);
-        workspaces.forEach((workspace) => {
+        workspaces?.forEach((workspace) => {
             this.workspaces.set(workspace.uid, workspace);
         });
 
-        const currentUid = await storage.instance.get<string | undefined>(this.currentWorkspaceStorageKey, undefined);
+        const currentUid = await storage.instance.get<string | undefined>(StorageKeys.currentWorkspaceStorageKey, undefined);
         if (currentUid !== undefined) {
             this.current === this.workspaces.get(currentUid);
 
@@ -67,6 +67,6 @@ export class DefaultWorkspaceService implements IWorkspaceService {
             throw new Error("No storage found for workspaces");
         }
 
-        return storage.instance.set(this.currentWorkspaceStorageKey, uid);
+        return storage.instance.set(StorageKeys.currentWorkspaceStorageKey, uid);
     }
 }
