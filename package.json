@@ -30,6 +30,7 @@
     "package:linux": "lerna run package:linux --stream",
     "package:darwin": "lerna run package:darwin --stream",
     "package:win32": "lerna run package:win32 --stream",
+    "package:win32:docker": "lerna run package:win32:docker --stream",
     "publish": "lerna publish from-package --no-git-reset --yes",
     "release": "lerna version --yes",
     "release:pre": "lerna version --conventional-prerelease --yes",

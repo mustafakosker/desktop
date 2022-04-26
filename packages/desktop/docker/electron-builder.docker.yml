@@ -5,14 +5,14 @@ directories:
 electronDist: "/cache/electron-v13.1.8-win32-x64"
 electronVersion: 13.1.8
 extraResources: 
-  - from: dist
+  - from: "dist/resources"
     filter: "*.asar"
-  - from: build
+  - from: "dist/resources"
     filter: "app-defaults.yml"
 extraMetadata:
   name: desktop
 files:
-  - "../desktop-core/dist/**/*"
+  - "dist/files"
 generateUpdatesFilesForAllChannels: true
 npmRebuild: false
 remoteBuild: false

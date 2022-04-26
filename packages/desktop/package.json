@@ -21,10 +21,15 @@
     "builder:linux": "electron-builder --linux --publish never",
     "builder:win32": "electron-builder --win --publish never",
     "clean": "rimraf dist pack",
-    "copy": "copyfiles -f \"../../node_modules/@reactivemarkets/desktop-*/**/*.asar\" dist",
+    "copy": "copyfiles -f \"../../node_modules/@reactivemarkets/desktop-*/**/*.asar\" dist/resources",
+    "copy:build:docker": "copyfiles -f \"build/app-defaults.yml\" docker/dist/resources",
+    "copy:files:docker": "copyfiles -f \"../desktop-core/dist/**/*\" docker/dist/files",
+    "copy:asar:docker": "copyfiles -f \"../../node_modules/@reactivemarkets/desktop-*/**/*.asar\" docker/dist/resources",
+    "copy:docker": "run-s copy:build:docker copy:files:docker copy:asar:docker",
     "package:darwin": "run-s clean copy builder:darwin zip:darwin",
     "package:linux": "run-s clean copy builder:linux",
     "package:win32": "run-s clean copy builder:win32",
+    "package:win32:docker": "run-s clean copy:docker builder:win32",
     "postinstall": "node install.js",
     "postzip:darwin": "node blockmap.js",
     "zip:darwin": "cross-var \"cd pack/mac && zip -r -q --symlinks ../Desktop-$npm_package_version-darwin-x64.zip * && cd ../..\""
@@ -45,10 +50,14 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cli-progress": "^3.8.2",
+    "copyfiles": "^2.4.1",
+    "cross-var": "^1.1.0",
     "dotenv": "^16.0.0",
     "extract-zip": "^2.0.1",
     "https-proxy-agent": "^5.0.0",
     "node-fetch": "^2.6.1",
-    "npm-conf": "^1.1.3"
+    "npm-conf": "^1.1.3",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
   }
 }
