@@ -11,4 +11,4 @@ RUN cp -r /usr/local/lib/node_modules/electron ./node_modules/electron
 RUN npm run build
 RUN npm run asar
 
-#RUN npm run package:win32
+RUN npm run package:win32
