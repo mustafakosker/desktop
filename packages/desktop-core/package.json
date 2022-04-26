@@ -2,6 +2,7 @@
   "name": "@reactivemarkets/desktop-core",
   "version": "0.39.0",
   "description": "A cross platform hosting environment for multi-window applications",
+  "main": "./index.js",
   "publishConfig": {
     "access": "public"
   },
